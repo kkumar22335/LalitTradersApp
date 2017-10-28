@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+	<statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file> c:///home/HiCorp/applications/logs/ltapp.log </file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>d://home/HiCorp/applications/logs/ltapp.%d{yyyy-MM-dd}.%i.html
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 5MB or 5 Days -->
+				<maxFileSize>5MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>5</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %5p | %t |%-5relative %-5level %logger{35}
+				- %msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %5p | %t | %line [%logger{30}][%M] %m %n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.springframework" level="warn" />
+	<logger name="org.springframework.data" level="info" />
+
+	<logger name="com.hicorp" level="debug" />
+	<logger name="org.apache.commons.beanutils" level="OFF"
+		additivity="false" />
+
+	<root level="debug">
+		<appender-ref ref="console" />
+		<appender-ref ref="FILE" />
+	</root>
+
+
+</configuration>
